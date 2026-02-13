@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Etem Files</title>
+  <title>Equipment Sign-off PDFs</title>
   <style>
     :root{
       --bg:#0b1220;
@@ -14,6 +14,10 @@
       --muted:#a9b4d0;
       --shadow: 0 18px 55px rgba(0,0,0,.45);
       --radius:18px;
+      --pill: rgba(255,255,255,.06);
+      --pillActive: rgba(78,161,255,.18);
+      --pillBorder: rgba(78,161,255,.30);
+      --danger:#ff5c7a;
     }
 
     *{box-sizing:border-box}
@@ -29,94 +33,140 @@
         var(--bg);
     }
 
-    .wrap{
-      max-width:1050px;
-      margin:0 auto;
-      padding:26px 16px 64px;
-    }
+    .wrap{max-width:1100px;margin:0 auto;padding:26px 16px 64px;}
 
-    .hero{
-      display:flex;
-      align-items:flex-end;
-      justify-content:space-between;
-      gap:16px;
-      flex-wrap:wrap;
-      margin-bottom:16px;
+    /* ===== LOGIN ===== */
+    .login-shell{
+      max-width:520px;
+      margin: 7vh auto 0;
+      border:1px solid var(--border);
+      border-radius: var(--radius);
+      background: linear-gradient(180deg, var(--panel), var(--panel2));
+      box-shadow: var(--shadow);
+      overflow:hidden;
     }
-
-    .brand{
-      display:flex;
-      align-items:center;
-      gap:14px;
+    .login-head{
+      padding:18px 18px 12px;
+      display:flex;align-items:center;gap:14px;
+      border-bottom:1px solid var(--border);
     }
-
     .logo{
       width:44px;height:44px;border-radius:16px;
       background: linear-gradient(135deg, rgba(78,161,255,.95), rgba(124,92,255,.95));
       box-shadow: 0 10px 30px rgba(78,161,255,.20);
-      position:relative;
-      overflow:hidden;
     }
-    .logo:after{
-      content:"";
-      position:absolute;inset:-30%;
-      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.30), transparent 55%);
-      transform: rotate(15deg);
+    h1{margin:0;font-size:20px;}
+    .sub{margin:6px 0 0;color:var(--muted);font-size:13px;line-height:1.4}
+
+    .login-body{padding:18px;}
+    .row{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px;}
+    label{display:block;color:var(--muted);font-size:12px;margin-bottom:6px;}
+    .field{width:100%;}
+    input{
+      width:100%;
+      padding:12px 12px;
+      border-radius: 14px;
+      border:1px solid var(--border);
+      background: rgba(0,0,0,.18);
+      color: var(--text);
+      outline:none;
+      font-size:14px;
+    }
+    input:focus{border-color: rgba(78,161,255,.45)}
+    .btn{
+      display:inline-flex;align-items:center;justify-content:center;
+      padding:12px 14px;border-radius:14px;
+      border:1px solid rgba(78,161,255,.35);
+      background: linear-gradient(135deg, rgba(78,161,255,.95), rgba(124,92,255,.95));
+      color:#081022;
+      font-weight:900;
+      cursor:pointer;
+      font-size:14px;
+      min-width:120px;
+    }
+    .btn.secondary{
+      background: rgba(255,255,255,.06);
+      border:1px solid var(--border);
+      color: var(--text);
+      font-weight:800;
+    }
+    .msg{
+      margin-top:10px;
+      color: var(--danger);
+      font-size:13px;
+      display:none;
+    }
+    .login-foot{
+      padding:12px 18px;
+      border-top:1px solid var(--border);
+      color:var(--muted);
+      font-size:12px;
+      display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;
     }
 
-    h1{
-      font-size:22px;
-      margin:0;
-      letter-spacing:.2px;
+    /* ===== APP ===== */
+    .app{display:none;}
+    .hero{
+      display:flex;align-items:flex-end;justify-content:space-between;
+      gap:16px;flex-wrap:wrap;margin-bottom:14px;
     }
-    .sub{
-      margin:4px 0 0;
-      color:var(--muted);
-      font-size:13px;
-      line-height:1.4;
-    }
+    .brand{display:flex;align-items:center;gap:14px;}
 
     .toolbar{
       width:100%;
-      display:flex;
-      gap:12px;
-      flex-wrap:wrap;
-      align-items:center;
-      justify-content:space-between;
+      display:flex;gap:12px;flex-wrap:wrap;
+      align-items:center;justify-content:space-between;
       margin-top:10px;
+    }
+
+    .tabs{
+      display:flex;gap:10px;flex-wrap:wrap;
+      padding:10px;
+      border:1px solid var(--border);
+      border-radius: 16px;
+      background: rgba(0,0,0,.16);
+      box-shadow: var(--shadow);
+    }
+
+    .tab{
+      border:1px solid var(--border);
+      background: var(--pill);
+      color: var(--text);
+      padding:10px 12px;
+      border-radius: 14px;
+      cursor:pointer;
+      font-weight:900;
+      font-size:13px;
+      user-select:none;
+    }
+    .tab.active{
+      background: var(--pillActive);
+      border-color: var(--pillBorder);
     }
 
     .search{
       flex:1;
       min-width:260px;
-      display:flex;
-      align-items:center;
-      gap:10px;
-      padding:12px 12px;
+      display:flex;align-items:center;gap:10px;
+      padding:10px 10px;
       border-radius: 16px;
       border:1px solid var(--border);
       background: rgba(0,0,0,.18);
       box-shadow: var(--shadow);
     }
-
     .search input{
-      flex:1;
-      border:none;
-      outline:none;
-      background:transparent;
-      color:var(--text);
-      font-size:14px;
+      flex:1;border:none;outline:none;background:transparent;
+      color:var(--text);font-size:14px;
     }
-    .search .hint{
-      color:var(--muted);
-      font-size:12px;
+    .searchBtn{
+      padding:10px 12px;border-radius:14px;
       border:1px solid var(--border);
-      padding:2px 8px;
-      border-radius:999px;
-      background: rgba(255,255,255,.05);
-      user-select:none;
+      background: rgba(255,255,255,.06);
+      color: var(--text);
+      font-weight:900;
+      cursor:pointer;
+      white-space:nowrap;
     }
-
     .count{
       color:var(--muted);
       font-size:13px;
@@ -151,157 +201,219 @@
       background: rgba(0,0,0,.14);
       transition: transform .12s ease, background .12s ease, border-color .12s ease;
     }
-    .card:hover{
-      transform: translateY(-2px);
-      background: rgba(0,0,0,.18);
-      border-color: rgba(255,255,255,.16);
-    }
+    .card:hover{transform: translateY(-2px); background: rgba(0,0,0,.18); border-color: rgba(255,255,255,.16);}
 
-    .top{
-      display:flex;
-      align-items:flex-start;
-      justify-content:space-between;
-      gap:10px;
-      margin-bottom:10px;
-    }
-
-    .title{
-      margin:0;
-      font-size:14px;
-      font-weight:800;
-      letter-spacing:.2px;
-    }
-    .meta{
-      margin:5px 0 0;
-      color:var(--muted);
-      font-size:12px;
-      word-break:break-word;
-    }
+    .top{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;margin-bottom:10px;}
+    .title{margin:0;font-size:14px;font-weight:950;letter-spacing:.2px}
+    .meta{margin:5px 0 0;color:var(--muted);font-size:12px;word-break:break-word}
 
     .badge{
-      font-size:11px;
-      color:rgba(255,255,255,.9);
-      padding:4px 8px;
-      border-radius:999px;
+      font-size:11px;color:rgba(255,255,255,.9);
+      padding:4px 8px;border-radius:999px;
       border:1px solid var(--border);
       background: rgba(255,255,255,.06);
       white-space:nowrap;
     }
 
-    .actions{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      margin-top:10px;
-    }
-
-    .btn{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      gap:8px;
-      padding:10px 12px;
-      border-radius: 14px;
-      text-decoration:none;
-      font-size:13px;
-      font-weight:750;
+    .actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px;}
+    a.fileBtn{
+      display:inline-flex;align-items:center;justify-content:center;
+      padding:10px 12px;border-radius:14px;
+      text-decoration:none;font-size:13px;font-weight:900;
       border:1px solid var(--border);
       background: rgba(255,255,255,.06);
       color:var(--text);
-      transition: filter .12s ease, transform .12s ease;
     }
-    .btn:hover{filter:brightness(1.06)}
-    .btn.primary{
+    a.fileBtn.primary{
       border-color: rgba(78,161,255,.35);
       background: rgba(78,161,255,.14);
     }
 
     .footer{
-      display:flex;
-      justify-content:space-between;
-      gap:10px;
-      flex-wrap:wrap;
-      padding:12px 14px;
-      border-top:1px solid var(--border);
-      color:var(--muted);
-      font-size:12px;
+      display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;
+      padding:12px 14px;border-top:1px solid var(--border);
+      color:var(--muted);font-size:12px;
+      align-items:center;
+    }
+    .right-actions{display:flex;gap:10px;align-items:center;flex-wrap:wrap;}
+    .linkBtn{
+      padding:8px 10px;border-radius:12px;border:1px solid var(--border);
+      background: rgba(255,255,255,.06); color:var(--text); cursor:pointer;
+      font-weight:900; font-size:12px;
     }
 
-    .empty{
-      padding:22px 14px;
-      color:var(--muted);
-    }
-
-    .icon{
-      width:16px;height:16px;display:inline-block;
-    }
+    .empty{padding:22px 14px;color:var(--muted);}
   </style>
 </head>
 <body>
   <div class="wrap">
 
-    <div class="hero">
-      <div class="brand">
+    <!-- LOGIN SCREEN -->
+    <div class="login-shell" id="login">
+      <div class="login-head">
         <div class="logo"></div>
         <div>
-          <h1>Etem Documents</h1>
-          <p class="sub">Open a document online or download it. Works on mobile and desktop.</p>
+          <h1>Secure Access</h1>
+          <p class="sub">Enter your credentials to view signed equipment handover PDFs.</p>
         </div>
       </div>
 
-      <div class="toolbar">
-        <div class="search">
-          <svg class="icon" viewBox="0 0 24 24" fill="none">
-            <path d="M21 21l-4.35-4.35m1.85-5.15a7 7 0 11-14 0 7 7 0 0114 0z" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-          </svg>
-          <input id="q" type="text" placeholder="Search by name or filename..." />
-          <span class="hint">Ctrl + K</span>
+      <div class="login-body">
+        <div class="field">
+          <label>Username</label>
+          <input id="u" type="text" placeholder="e.g. Admin" autocomplete="username">
         </div>
-        <div class="count" id="count">0 files</div>
+
+        <div class="field" style="margin-top:12px;">
+          <label>Password</label>
+          <input id="p" type="password" placeholder="Password" autocomplete="current-password">
+        </div>
+
+        <div class="row">
+          <button class="btn" id="loginBtn">Login</button>
+          <button class="btn secondary" id="clearBtn" type="button">Clear</button>
+        </div>
+
+        <div class="msg" id="msg">Wrong username or password.</div>
+      </div>
+
+      <div class="login-foot">
+        <div>GitHub Pages (client-side login)</div>
+        <div>For real security, use protected hosting.</div>
       </div>
     </div>
 
-    <div class="panel">
-      <div class="grid" id="grid"></div>
-      <div class="footer">
-        <div>Hosted on GitHub Pages</div>
-        <div id="updated"></div>
+    <!-- APP -->
+    <div class="app" id="app">
+      <div class="hero">
+        <div class="brand">
+          <div class="logo"></div>
+          <div>
+            <h1>Equipment Sign-off PDFs</h1>
+            <p class="sub">Laptops and Mobile phones. Use Search to find a person quickly.</p>
+          </div>
+        </div>
+
+        <div class="toolbar">
+          <div class="tabs" id="tabs">
+            <div class="tab active" data-cat="laptops">Laptops</div>
+            <div class="tab" data-cat="mobiles">Mobile phones</div>
+          </div>
+
+          <div class="search">
+            <input id="q" type="text" placeholder="Type name or filename..." />
+            <button class="searchBtn" id="searchBtn" type="button">Search</button>
+          </div>
+
+          <div class="count" id="count">0 files</div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="grid" id="grid"></div>
+        <div class="footer">
+          <div id="updated"></div>
+          <div class="right-actions">
+            <button class="linkBtn" id="logoutBtn" type="button">Logout</button>
+          </div>
+        </div>
       </div>
     </div>
 
   </div>
 
 <script>
-  // ✅ EDIT THIS LIST (titles + exact filenames in your repo)
+  // =========================================================
+  // LOGIN (client-side only) — requested credentials:
+  // Username: Admin
+  // Password: Antonis82
+  // =========================================================
+  const USERNAME = "Admin";
+  const PASSWORD = "Antonis82";
+  const SESSION_KEY = "etm_logged_in";
+
+  const loginBox = document.getElementById("login");
+  const appBox = document.getElementById("app");
+  const u = document.getElementById("u");
+  const p = document.getElementById("p");
+  const msg = document.getElementById("msg");
+
+  function showApp() {
+    loginBox.style.display = "none";
+    appBox.style.display = "block";
+    document.getElementById("q").focus();
+  }
+
+  function showLogin() {
+    appBox.style.display = "none";
+    loginBox.style.display = "block";
+    u.value = "";
+    p.value = "";
+    msg.style.display = "none";
+    u.focus();
+  }
+
+  function tryLogin() {
+    if (u.value.trim() === USERNAME && p.value === PASSWORD) {
+      localStorage.setItem(SESSION_KEY, "1");
+      showApp();
+      render(); // render after login
+    } else {
+      msg.style.display = "block";
+      p.select();
+    }
+  }
+
+  document.getElementById("loginBtn").addEventListener("click", tryLogin);
+  document.getElementById("clearBtn").addEventListener("click", () => { u.value=""; p.value=""; msg.style.display="none"; u.focus(); });
+  u.addEventListener("keydown", (e) => { if (e.key === "Enter") p.focus(); });
+  p.addEventListener("keydown", (e) => { if (e.key === "Enter") tryLogin(); });
+
+  document.getElementById("logoutBtn").addEventListener("click", () => {
+    localStorage.removeItem(SESSION_KEY);
+    showLogin();
+  });
+
+  // =========================================================
+  // FILES LIST — EDIT THIS ONLY
+  // category: "laptops" or "mobiles"
+  // file: exact filename (case-sensitive) OR folder path like "Laptops/Name.pdf"
+  // =========================================================
   const FILES = [
-    { title: "Eleftheropoulos", file: "Eleftheropoulos.pdf", tag: "PDF" },
-    { title: "Pavlou",          file: "Pavlou.pdf",          tag: "PDF" },
-    { title: "Stavrakoglou",    file: "Stavrakoglou.pdf",    tag: "PDF" },
-    { title: "Nikolaidi",       file: "Nikolaidi.pdf",       tag: "PDF" },
-    { title: "Manikalis",       file: "Manikalis.pdf",       tag: "PDF" },
-    { title: "Psarianos",       file: "Psarianos.pdf",       tag: "PDF" },
-    { title: "Theodorou",       file: "Theodorou.pdf",       tag: "PDF" },
-    { title: "Varvarigos",       file: "Varvarigos.pdf",     tag: "PDF" },
-    { title: "Panagiotopoulos",  file: "Panagiotopoulos.pdf",tag: "PDF" }
+    { category: "laptops", title: "Pavlou – Laptop",       file: "Pavlou.pdf" },
+    { category: "laptops", title: "Stavrakoglou – Laptop", file: "Stavrakoglou.pdf" },
+    { category: "laptops", title: "Eleftheropoulos – Laptop", file: "Eleftheropoulos.pdf" },
+    { category: "laptops", title: "Nikolaidi – Laptop",       file: "Nikolaidi.pdf" },
+
+    { category: "mobiles", title: "Psarianos – Mobile",       file: "Psarianos.pdf" },
+    { category: "mobiles", title: "Manikalis – Mobile",       file: "Manikalis.pdf" },
+    { category: "mobiles", title: "Varvarigos – Mobile",      file: "Varvarigos.pdf" },
+    { category: "mobiles", title: "Theodorou – Mobile",      file: "Theodorou.pdf" },
   ];
 
+  // =========================================================
+  // APP LOGIC
+  // =========================================================
   const grid = document.getElementById("grid");
   const q = document.getElementById("q");
   const count = document.getElementById("count");
   const updated = document.getElementById("updated");
+  const tabs = document.getElementById("tabs");
 
-  function render(filter="") {
-    grid.innerHTML = "";
-    const s = filter.trim().toLowerCase();
+  let currentCat = "laptops";
 
+  function render() {
+    const s = q.value.trim().toLowerCase();
     const items = FILES.filter(x =>
-      x.title.toLowerCase().includes(s) || x.file.toLowerCase().includes(s)
+      x.category === currentCat &&
+      (x.title.toLowerCase().includes(s) || x.file.toLowerCase().includes(s))
     );
 
     count.textContent = `${items.length} file${items.length === 1 ? "" : "s"}`;
+    grid.innerHTML = "";
 
     if (items.length === 0) {
-      grid.innerHTML = `<div class="empty">No files match your search.</div>`;
+      grid.innerHTML = `<div class="empty">No files found.</div>`;
       return;
     }
 
@@ -314,43 +426,41 @@
             <p class="title">${item.title}</p>
             <p class="meta">${item.file}</p>
           </div>
-          <span class="badge">${item.tag || "FILE"}</span>
+          <span class="badge">${currentCat === "laptops" ? "Laptop" : "Mobile"}</span>
         </div>
 
         <div class="actions">
-          <a class="btn primary" href="${item.file}" target="_blank" rel="noopener">
-            Open
-          </a>
-          <a class="btn" href="${item.file}" download>
-            Download
-          </a>
+          <a class="fileBtn primary" href="${item.file}" target="_blank" rel="noopener">Open</a>
+          <a class="fileBtn" href="${item.file}" download>Download</a>
         </div>
       `;
       grid.appendChild(el);
     }
   }
 
-  // Search
-  q.addEventListener("input", e => render(e.target.value));
+  tabs.addEventListener("click", (e) => {
+    const tab = e.target.closest(".tab");
+    if (!tab) return;
 
-  // Ctrl+K focus
-  window.addEventListener("keydown", (e) => {
-    if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "k") {
-      e.preventDefault();
-      q.focus();
-    }
+    currentCat = tab.dataset.cat;
+    document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
+    tab.classList.add("active");
+    render();
   });
 
-  // Footer "updated"
+  // Search input + Search button
+  q.addEventListener("keydown", (e) => { if (e.key === "Enter") render(); });
+  document.getElementById("searchBtn").addEventListener("click", render);
+
   updated.textContent = `Last updated: ${new Date().toLocaleDateString()}`;
 
-  // Initial render
-  render("");
+  // Auto-login if already logged in on this device
+  if (localStorage.getItem(SESSION_KEY) === "1") {
+    showApp();
+    render();
+  } else {
+    showLogin();
+  }
 </script>
 </body>
 </html>
-
-
-
-
-
